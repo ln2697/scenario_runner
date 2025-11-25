@@ -1807,7 +1807,8 @@ class RunningStopTest(Criterion):
     """
     PROXIMITY_THRESHOLD = 4.0  # Stops closer than this distance will be detected [m]
     SPEED_THRESHOLD = 0.1 # Minimum speed to consider the actor has stopped [m/s]
-    WAYPOINT_STEP = 0.5  # m
+    # WAYPOINT_STEP = 0.5  # m
+    WAYPOINT_STEP = 0.01 # because some stop signs are very small
 
     def __init__(self, actor, name="RunningStopTest", terminate_on_failure=False):
         """
@@ -1858,6 +1859,8 @@ class RunningStopTest(Criterion):
         # Check if the any of the actor wps is inside the stop's bounding box.
         # Using more than one waypoint removes issues with small trigger volumes and backwards movement
         stop_extent = stop.trigger_volume.extent
+        stop_extent.x = max(0.5, stop_extent.x)
+        stop_extent.y = max(0.5, stop_extent.y)
         for actor_wp in wp_list:
             if self.point_inside_boundingbox(actor_wp.transform.location, stop_location, stop_extent):
                 return True
