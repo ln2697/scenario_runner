@@ -208,7 +208,7 @@ class BackgroundBehavior(AtomicBehavior):
         self._road_dict = {}  # Dictionary lane key -> actor source
         self._road_checker_index = 0
 
-        self._road_front_vehicles = 2  # Amount of vehicles in front of the ego
+        self._road_front_vehicles = 0 # 2  # Amount of vehicles in front of the ego
         self._road_back_vehicles = 2  # Amount of vehicles behind the ego
         self._radius_increase_ratio = 1.7  # Meters the radius increases per m/s of the ego
 
